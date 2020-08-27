@@ -1,0 +1,89 @@
+#nombres quasi parfaits
+from collections import Counter 
+import math
+
+#find prime factorisation of n
+def primeFactors(n): 
+    a = []
+    # Print the number of two's that divide n 
+    while n % 2 == 0: 
+        a.append(2), 
+        n = n / 2
+          
+    # n must be odd at this point 
+    # so a skip of 2 ( i = i + 2) can be used 
+    for i in range(3,int(math.sqrt(n))+1,2): 
+          
+        # while i divides n , print i ad divide n 
+        while n % i== 0: 
+            a.append(i), 
+            n = n / i 
+              
+    # Condition if n is a prime 
+    # number greater than 2 
+    if n > 2: 
+        a.append(int(n))
+
+    return a
+
+#putting this into a function: S(2**3) = 1 + 2 + 4 + 8 
+def rep(base, power):
+    result = 0
+    for i in range(power+1):
+        result += base**(power-i)
+
+    return result
+
+
+#finds the number of divisors
+def Sn(a):
+    d = Counter(a)
+    newa = set(a)
+    bigS = 1
+    for i in newa:
+        bigS *= rep(i,d[i])
+        
+    return bigS
+        
+
+
+
+
+K = 0 #le nombre d'entiers vérifiant la propriété voulue
+L = int(input())
+D = int(input())
+
+for i in range(1,L+1):
+    res = abs( Sn(primeFactors(i)) - 2*i )
+    if res<=D:
+       K+=1
+print(K)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
